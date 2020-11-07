@@ -75,10 +75,18 @@
             .then(response => response.json())
             .then(data => {
                 const url = data.url
-                document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+                if (url === undefined) {
+                    document.getElementById("shortened").innerHTML = `<p>Произошла ошибка "В теле запроса отсутствует параметр url", попробуйте еще раз</p>`
+                } else {
+                    document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+                }
             })
             .catch(error => {
-                document.getElementById("shortened").innerHTML = `<p>Произошла ошибка ${error}, попробуйте еще раз</p>`
+                if (error.message.indexOf("in JSON")!==-1) {
+                    document.getElementById("shortened").innerHTML = `<p>Произошла ошибка "В теле запроса отсутствует параметр url", попробуйте еще раз</p>`
+				} else {
+                    document.getElementById("shortened").innerHTML = `<p>Произошла ошибка "${error}", попробуйте еще раз</p>`
+                }
             })
     }
     function shortennode() {
@@ -93,7 +101,11 @@
             .then(response => response.json())
             .then(data => {
                 const url = data.url
-                document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+                if (url === undefined) {
+                    document.getElementById("shortened").innerHTML = `<p>Произошла ошибка "${data.result}", попробуйте еще раз</p>`
+                } else {
+                    document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+                }
             })
             .catch(error => {
                 document.getElementById("shortened").innerHTML = `<p>Произошла ошибка ${error}, попробуйте еще раз</p>`
@@ -111,7 +123,11 @@
             .then(response => response.json())
             .then(data => {
                 const url = data.url
-                document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+				if (url === undefined) {
+                    document.getElementById("shortened").innerHTML = `<p>Произошла ошибка "${data.result}", попробуйте еще раз</p>`
+				} else {
+                    document.getElementById("shortened").innerHTML = `<a href=${url}>${url}</a>`
+                }
             })
             .catch(error => {
                 document.getElementById("shortened").innerHTML = `<p>Произошла ошибка ${error}, попробуйте еще раз</p>`
